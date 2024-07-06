@@ -4,7 +4,7 @@ class Location(models.Model):
     sub_loc = models.CharField(max_length=255, primary_key=True)
     province = models.CharField(max_length=255)
 
-class WdpaOecm(models.Model):
+class ProtectedArea(models.Model):
     #id = models.AutoField(primary_key=True)
     wdpaid = models.IntegerField(primary_key=True)
     wdpa_pid = models.CharField(max_length=255)

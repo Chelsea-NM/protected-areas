@@ -1,19 +1,20 @@
 from django.shortcuts import render
-from .models import WdpaOecm, Location
+from .models import ProtectedArea, Location
+from .serializers import  LocationSerializer
 import csv
 
 def import_wdoecm_data(request):
-    file_path = 'WDOECM_data.csv' 
+    file_path = 'protectedareas\core\csv-data\WDOECM_data.csv' 
     c = 0
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            # Create or get the Category instance
+            # Create or get the Location instance
             location, created = Location.objects.get_or_create(
             sub_loc=row['SUB_LOC']
             )
             
-            WdpaOecm.objects.create(
+            ProtectedArea.objects.create(
                 wdpaid=row['WDPAID'],
                 wdpa_pid=row['WDPA_PID'],
                 name=row['NAME'],  
@@ -37,7 +38,7 @@ def import_wdoecm_data(request):
     return render(request, 'import_csv_data.html', {'insert_count': c, 'file_path': file_path})
 
 def import_location_data(request):
-    file_path = 'LOCATION_data.csv' 
+    file_path = 'protectedareas\core\csv-data\LOCATION_data.csv' 
     c = 0
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
